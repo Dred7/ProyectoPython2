@@ -1,3 +1,5 @@
+import csv
+import os
 
 # Definino la clase Tarea
 class Tarea:
@@ -13,16 +15,19 @@ class Tarea:
         return f"{self.descripcion} (Fecha: {self.fecha}) - {estado}"
 
 class Agenda:
-    def __init__(self):
+    def __init__(self, agenda_csv = "tareas.csv"):
         #Constructor de la clase Agenda
         #Lista para almacenar las tareas
         self.tareas = [] 
+        self.agenda_csv = agenda_csv
+        self.cargar_csv()
 
     def agregar_tarea(self, descripcion, fecha):
         #Metodo para agregar una tarea a la agenda
         tarea = Tarea(descripcion, fecha)
         self.tareas.append(tarea)
         print("Tarea agregada con éxito.")
+        self.guardar_csv()
 
     def mostrar_tareas(self):
         #Metodo para mostrar todas las tareas
@@ -38,6 +43,7 @@ class Agenda:
             self.tareas[indice].descripcion = nueva_descripcion
             self.tareas[indice].fecha = nueva_fecha
             print("Tarea modificada con éxito.")
+            self.guardar_csv()
         else:
             print("Índice de tarea no válido.")
 
@@ -46,6 +52,7 @@ class Agenda:
         if 0 <= indice < len(self.tareas):
             self.tareas[indice].completada = True
             print("Tarea marcada como completada.")
+            self.guardar_csv()
         else:
             print("Índice de tarea no válido.")
 
@@ -54,8 +61,33 @@ class Agenda:
         if 0 <= indice < len(self.tareas):
             del self.tareas[indice]
             print("Tarea eliminada con éxito.")
+            self.guardar_csv()
         else:
             print("Índice de tarea no válido.")
+
+    def guardar_csv(self):
+        #Metodo para guardar las tareas en un archivo csv
+        with open (self.agenda_csv, mode = "w", newline = "", encoding = "utf-8") as agenda:
+            escribir = csv.writer(agenda)
+            escribir.writerow(["Descipcion", "Fecha", "Completada"])
+            for tarea in self.tareas:
+                escribir.writerow([tarea.descripcion, tarea.fecha, tarea.completada])
+    
+    def cargar_csv(self):
+        #Metodo para cargar las tareas de un archivo csv
+        if os.path.exists(self.agenda_csv):
+            with open(self.agenda_csv, mode = "r", newline = "", encoding = "utf-8") as agenda:
+                leer = csv.reader(agenda)
+                next(leer)
+                for fila in leer:
+                    descripcion, fecha, completada = fila
+                    completada = completada.lower() == "true" #Convertimos a booleano
+                    self.tareas.append(Tarea(descripcion, fecha, completada))
+            print(f"Tareas cargadas desde {self.agenda_csv}.")
+        else:
+            print(f"El archivo {self.agenda_csv} no existe. Se creara uno nuevo cuando guardes una tarea")
+
+
 
 def mostrar_menu():
     #Funcion para mostrar el menu con las opciones
