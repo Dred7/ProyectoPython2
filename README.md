@@ -33,7 +33,7 @@ Menú de opciones:
 5. Eliminar tarea: Selecciona  una tarea para eliminarla de la agenda.
 6. Salir: Cierra el programa.
 
-Estructura del proyecto:
+Estructura del proyecto por ahora:
 1. agenda.py: Archivo principal del programa.
 2. tareas.csv: Archivo CSV donde se almacenan las tareas (se crea automáticamente al agregar la primera tarea).
 
