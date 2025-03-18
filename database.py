@@ -11,16 +11,7 @@ class Database:
             print(f"Error al conectar con la base de datos: {e}")
             exit(1)
 
-    def ejecutar_consulta(self, query, params=None, fetch=False):
-        # Ejecuta consultas en la base de datos
-        try:
-            self.cur.execute(query, params or ())
-            if fetch:
-                return self.cur.fetchall()
-            self.conn.commit()
-        except psycopg2.Error as e:
-            print(f"Error en la consulta: {e}")
-            self.conn.rollback()
+    
 
     def cerrar_conexion(self):
         # Cierra la conexión con la base de datos
