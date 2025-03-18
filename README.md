@@ -30,7 +30,7 @@ Instalación:
 1. Clona este repositorio o descarga el archivo agenda.py
 2. Asegurate de tener Python instalado. Puedes verificar la instalacion ejecutando:
   python --version
-3. Crea una base de datos en PostgreSQL llamada agenda con el script sql que esta en la documentacion de la base de datos.
+3. Crea una base de datos en PostgreSQL llamada agenda con el script sql que esta en la documentacion de la base de datos e haz los ultimos insert's para que funcione.
 4. Navega al directorio donde se encuentran los archivos del proyecto.
 
 Uso:
