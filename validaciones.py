@@ -13,8 +13,13 @@ def validar_fecha(mensaje):
     while True:
         fecha = input(mensaje)
         try:
-            datetime.strptime(fecha, "%Y-%m-%d")  # Intenta convertir la fecha
-            return fecha
+            fecha_ingresada = datetime.strptime(fecha, "%Y-%m-%d")  # Intenta convertir la fecha
+            fecha_actual = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)  # Fecha actual sin hora
+            
+            if fecha_ingresada < fecha_actual:
+                print("Error: La fecha no puede ser menor a la fecha actual. Intente de nuevo.")
+            else:
+                return fecha
         except ValueError:
             print("Error: Formato de fecha incorrecto. Use YYYY-MM-DD. Intente de nuevo.")
 
